@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>agus.ramdan</groupId>
 	<artifactId>api-cdt-query-service</artifactId>
-	<version>21.3.4.4.0.20150403</version>
+	<version>21.3.4.4.0.201504031</version>
 	<name>Api CDT Query Service</name>
 	<description>Spring Boot Apache Kafka Topics Consumer</description>
 	<properties>

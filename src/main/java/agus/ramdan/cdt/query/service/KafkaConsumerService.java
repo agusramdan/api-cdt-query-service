@@ -23,7 +23,7 @@ public class KafkaConsumerService {
         log.info("Consumed DataEvent : {}", event.getEventType());
         Map<String,Object> data = (Map<String,Object>)event.getData();
         data = new HashMap<>(data);
-        data.put("id_", data.get("id"));
+        data.put("_id", data.remove("id"));
         String full = event.getDataType()
                 .replaceAll("^.*\\.", "") // remove package name
                 .replaceAll("([a-z])([A-Z]+)", "$1_$2") // camel case to snake case
