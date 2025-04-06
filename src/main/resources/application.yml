@@ -1,0 +1,90 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  application:
+    name: api-cdt-query-service
+  threads:
+    virtual:
+      enabled: true
+  thread-executor: virtual
+  config:
+    use-legacy-processing: true
+  jmx:
+    enabled: true
+  main:
+    lazy-initialization: false
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: group-core-test-event-1
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: agus.ramdan.*
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    admin:
+      auto-create-topics: true
+
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/QueryDB
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+feign:
+  hystrix:
+    enabled: false
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui
+
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    root: WARN
+    agus.ramdan.base.exception: DEBUG
+    agus.ramdan.cdt.event: INFO
+
+management:
+  server:
+    port: 7180
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      show-details: ALWAYS
+  security:
+    enabled: false
+  metrics:
+    tags:
+      application: api-cdt-query-service
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  tracing:
+    sampling:
+      probability: 1.0
+  observations:
+    key-values:
+      application: api-cdt-query-service
