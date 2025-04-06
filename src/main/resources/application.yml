@@ -55,7 +55,7 @@ logging:
   level:
     root: WARN
     agus.ramdan.base.exception: DEBUG
-    agus.ramdan.cdt.event: INFO
+    agus.ramdan.cdt.query: INFO
 
 management:
   server:
