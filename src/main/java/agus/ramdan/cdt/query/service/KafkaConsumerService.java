@@ -16,7 +16,7 @@ import java.util.Map;
 @Slf4j
 public class KafkaConsumerService {
 
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     @KafkaListener(topics = {"core-trx-event","core-master-event"})
     public void consumeDataEvent(DataEvent event) {
